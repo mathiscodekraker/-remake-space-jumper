@@ -40,6 +40,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: background
+    uniqueID: 429172025
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: platforms
+    uniqueID: 2738687023
+    locked: 0
+  - name: ball
+    uniqueID: 395678159
     locked: 0

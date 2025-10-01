@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class bounce : MonoBehaviour
 {
-    public float bounceForce = 15f;
+    public float bounceForce = 8f;
     private Rigidbody2D rb;
 
     //functions 
     public void Bounce()
     {
-        Debug.Log("Bounce");
         rb.velocity = new Vector2(rb.velocity.x, bounceForce);
     }
 
