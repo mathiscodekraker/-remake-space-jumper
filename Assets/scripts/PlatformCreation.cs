@@ -14,11 +14,17 @@ public class PlatformCreation : MonoBehaviour
     public GameObject PlatformLeftAndRightSpikes;
     private List<GameObject> PlatformList;
 
+    public List<GameObject> ClonedPlatforms;
+
     private float PlatformHeight = -1f;
     private float DifferentsBetweenPlatformHeights = 2f;
 
     private float BallCurrentHeight = -0.8686101f;
-    private float BallNextLevelHeight = BallCurrentHeight + DifferentsBetweenPlatformHeights;
+    private float BallNextLevelHeight;
+    private float BallDifferents = 3f;
+    private float BallLowestHeight;
+
+    private bool StartPositionNotYetReached;
 
     private float ReturnXposition()
     {
@@ -36,7 +42,8 @@ public class PlatformCreation : MonoBehaviour
     public void CloneObject()
     {
         float Xposition = ReturnXposition();
-        Instantiate(ReturnPlatform(), new Vector2(Xposition, PlatformHeight), Quaternion.identity);
+        GameObject clone = Instantiate(ReturnPlatform(), new Vector2(Xposition, PlatformHeight), Quaternion.identity);
+        ClonedPlatforms.Add(clone);
         PlatformHeight += DifferentsBetweenPlatformHeights;
     }
 
@@ -45,20 +52,31 @@ public class PlatformCreation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        BallNextLevelHeight = BallCurrentHeight + BallDifferents;
         PlatformList = new List<GameObject> { PlatformNoSpikes, PlatformLeftSpikes, PlatformRightSpikes, PlatformMiddleSpikes, PlatformLeftAndRightSpikes };
         CloneObject();
         CloneObject();
         CloneObject();
         CloneObject();
+        StartPositionNotYetReached = true;
+        BallLowestHeight = Player.transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((BallCurrentHeight + DifferentsBetweenPlatformHeights) > BallNextLevelHeight)
+        BallCurrentHeight = Player.transform.position.y;
+        while (StartPositionNotYetReached)
         {
-            BallNextLevelHeight += DifferentsBetweenPlatformHeights;
-            BallCurrentHeight += DifferentsBetweenPlatformHeights;
+            if(BallCurrentHeight < (BallDifferents + BallLowestHeight))
+            {
+                StartPositionNotYetReached = false;
+            }
+        }
+        if (BallCurrentHeight > BallNextLevelHeight)
+        {
+            BallNextLevelHeight += BallDifferents;
+            BallCurrentHeight += BallDifferents;
             CloneObject();
         }
     }
