@@ -6,6 +6,6 @@ public class death : MonoBehaviour
 {
     public void Death()
     {
-
+        Time.timeScale = 0f;
     }
 }

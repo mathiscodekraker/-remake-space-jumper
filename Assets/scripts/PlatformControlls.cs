@@ -18,7 +18,6 @@ public class PlatformControlls : MonoBehaviour
 
     public void MoveLeft()
     {
-        UnityEngine.Debug.Log(GetWhichPlatform());
         GameObject Platform = PlatformCreation.ClonedPlatforms[GetWhichPlatform()];
         Platform.GetComponent<Move>().MoveLeft();
     }
